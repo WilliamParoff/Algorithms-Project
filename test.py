@@ -24,8 +24,8 @@ def evaluate_graph(graph):
 
 def draw_graph(graph, weighted=False, draw=False):
     pos = nx.spring_layout(graph)
+    edge_labels = nx.get_edge_attributes(graph, "weight")
     if weighted:
-        edge_labels = nx.get_edge_attributes(graph, "weight")
         nx.draw_networkx_nodes(graph, pos)
         nx.draw_networkx_edges(graph, pos)
         nx.draw_networkx_labels(graph, pos)
@@ -34,6 +34,7 @@ def draw_graph(graph, weighted=False, draw=False):
         nx.draw_networkx(graph, pos)
     if draw:
         plt.show()
+    return sum(edge_labels.values())
 
 
 def main():
@@ -65,55 +66,55 @@ def main():
     plt.title("Sparse Graph")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(sparse)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(sparse)
+    sparse_weights = draw_graph(sparse)
 
     plt.subplot(4, 3, 2)
     plt.title("Dense Graph")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(dense)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(dense)
+    dense_weight = draw_graph(dense)
 
     plt.subplot(4, 3, 3)
     plt.title("Weighted Graph")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(weighted)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(weighted, weighted=True)
+    weighted_weights = draw_graph(weighted, weighted=True)
 
     plt.subplot(4, 3, 4)
     plt.title("Prim MST Sparse")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(prim_sparse)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(prim_sparse)
+    prim_sparse_weights = draw_graph(prim_sparse)
 
     plt.subplot(4, 3, 5)
     plt.title("Prim MST Dense")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(prim_dense)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(prim_dense)
+    prim_dense_weight = draw_graph(prim_dense)
 
     plt.subplot(4, 3, 6)
     plt.title("Prim MST Weighted")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(prim_weighted)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(prim_weighted)
+    prim_weighted_weights = draw_graph(prim_weighted)
 
     plt.subplot(4, 3, 7)
     plt.title("Kruskal MST Sparse")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(kruskal_sparse)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(prim_sparse)
+    draw_graph(kruskal_sparse)
 
     plt.subplot(4, 3, 8)
     plt.title("Kruskal MST Dense")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(kruskal_dense)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(prim_dense)
+    draw_graph(kruskal_dense)
 
     plt.subplot(4, 3, 9)
     plt.title("Kruskal MST Weighted")
     plt.text(0.01, 0.99, f"Weight: {evaluate_graph(kruskal_weighted)}", fontsize=12, ha='left', va='top',
              transform=plt.gca().transAxes)
-    draw_graph(prim_weighted)
+    draw_graph(kruskal_weighted, weighted=True)
 
     # ========================
     # test time complexity
